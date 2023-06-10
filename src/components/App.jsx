@@ -12,9 +12,8 @@ const App = () => {
 
   useEffect(() => {
     const storedContacts = localStorage.getItem('contacts');
-    if (storedContacts) {
-      setContacts(JSON.parse(storedContacts));
-    }
+    const parsedContacts = storedContacts ? JSON.parse(storedContacts) : [];
+    setContacts(parsedContacts);
   }, []);
 
   useEffect(() => {
@@ -22,7 +21,6 @@ const App = () => {
   }, [contacts]);
 
   const handleAddContact = (name, number) => {
-    const newContact = { id: nanoid(), name, number };
     const isDuplicate = contacts.some(
       contact =>
         contact.name.toLowerCase().trim() === name.toLowerCase().trim() ||
@@ -32,6 +30,7 @@ const App = () => {
     if (isDuplicate) {
       alert(`${name} or ${number} is already in contacts`);
     } else {
+      const newContact = { id: nanoid(), name, number };
       setContacts(prevContacts => [newContact, ...prevContacts]);
     }
   };

@@ -7,6 +7,21 @@ const ContactForm = ({ onAddContact, contacts }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  const handleChange = event => {
+    const { name, value } = event.target;
+
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
 
@@ -25,14 +40,6 @@ const ContactForm = ({ onAddContact, contacts }) => {
     }
   };
 
-  const handleNameChange = event => {
-    setName(event.target.value);
-  };
-
-  const handleNumberChange = event => {
-    setNumber(event.target.value);
-  };
-
   return (
     <Form onSubmit={handleSubmit}>
       <label>
@@ -44,7 +51,7 @@ const ContactForm = ({ onAddContact, contacts }) => {
           title="Name may contain only letters, apostrophe, dash and spaces."
           required
           value={name}
-          onChange={handleNameChange}
+          onChange={handleChange}
         />
       </label>
       <br />
@@ -57,7 +64,7 @@ const ContactForm = ({ onAddContact, contacts }) => {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
           value={number}
-          onChange={handleNumberChange}
+          onChange={handleChange}
         />
       </label>
       <br />
